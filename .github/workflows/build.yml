@@ -36,15 +36,25 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Install SDK components
+      - name: Install Android SDK
         run: |
+          set -e
+          export ANDROID_HOME=$HOME/android-sdk
+          mkdir -p "$ANDROID_HOME/cmdline-tools"
+          cd "$ANDROID_HOME/cmdline-tools"
+          curl -fsSL -o tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          unzip -q tools.zip
+          mv cmdline-tools latest
+          rm tools.zip
+          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          sdkmanager "platforms;android-37" "build-tools;37.0.0" "platform-tools" "ndk;29.0.14206865"
-          echo "=== sdk done ==="
+          sdkmanager --install "platforms;android-37" "build-tools;37.0.0" "platform-tools" "ndk;29.0.14206865"
+          echo "=== sdk installed ok ==="
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
 
       - name: Write local.properties
         run: |
-          echo "sdk.dir=${ANDROID_SDK_ROOT:-$ANDROID_HOME}" > local.properties
+          echo "sdk.dir=$HOME/android-sdk" > local.properties
 
       - name: Build release APK
         run: |
