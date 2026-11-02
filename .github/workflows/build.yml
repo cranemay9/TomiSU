@@ -55,6 +55,18 @@ jobs:
           echo "=== sdk installed ok ==="
           echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
 
+      - name: Build latest ksud (arm64, same commit as manager)
+        run: |
+          set -e
+          git clone --depth 1 https://github.com/tiann/KernelSU.git /tmp/ksu-src
+          cd /tmp/ksu-src/userspace/ksud
+          rustup target add aarch64-linux-android
+          cargo install cargo-ndk --locked
+          export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/29.0.14206865"
+          cargo ndk -t arm64-v8a -o "$GITHUB_WORKSPACE/app/src/main/jniLibs" build --release
+          echo "=== ksud built ==="
+          ls -la "$GITHUB_WORKSPACE/app/src/main/jniLibs/arm64-v8a/"
+
       - name: Write local.properties
         run: |
           echo "sdk.dir=$HOME/android-sdk" > local.properties
