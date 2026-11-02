@@ -18,18 +18,17 @@ jobs:
 
       - name: Unpack source zip
         run: |
+          set -e
           ZIPFILE=$(ls *.zip 2>/dev/null | head -1)
-          if [ -n "$ZIPFILE" ]; then
-            echo "Unpacking $ZIPFILE"
-            unzip -q "$ZIPFILE"
-            shopt -s dotglob
-            if [ -d TomiSU ]; then
-              mv TomiSU/* .
-              rmdir TomiSU
-            fi
-            rm -f "$ZIPFILE"
-            ls -la
-          fi
+          echo "found zip: $ZIPFILE"
+          test -n "$ZIPFILE"
+          mkdir -p /tmp/src
+          unzip -q "$ZIPFILE" -d /tmp/src
+          rm -f "$ZIPFILE"
+          cp -a /tmp/src/TomiSU/. .
+          rm -rf /tmp/src
+          echo "=== root files ==="
+          ls -la
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
