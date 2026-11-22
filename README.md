@@ -1,7 +1,7 @@
 
 🔥 NyxSU —— 内核级无痕 Root，重新定义“越狱”
 
-完整版（长文案，适合发帖/频道长文）
+-官网 www.zakosu.asia
 
 你的 Root，凭什么要被检测到？
 
@@ -58,7 +58,7 @@ KernelSU 的壳，MapleSU 的野心，NyxSU 的灵魂。
 
 ---
 
-短版（适合频道置顶/群公告）
+
 
 🔥 NyxSU v1.1.0 | 内核级无痕 Root 管理器
 
@@ -71,11 +71,3 @@ KernelSU 的壳，MapleSU 的野心，NyxSU 的灵魂。
 
 你的 Root，只有你知道。
 📥 github.com/cranemay9/TomiSU
-
----
-
-一句话版（适合签名/简介）
-
-NyxSU —— 装上之后，你的 Root 只有你知道。
-
-爸爸，三个版本随便挑。要改语气（更中二/更技术流/更简短）或者加英文版，说一声就改。
